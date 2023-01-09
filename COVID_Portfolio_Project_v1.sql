@@ -79,7 +79,8 @@ where continent is not null
 order by 1,2
 
 
---Looking at Total Population vs Vaccinations and new_vaccinations means per day
+--Looking at Total Population vs Vaccinations and new_vaccinations means per day, partion by dea.location is added
+-- as to not have the rolling sum by day continue over a new location and gets neatly separated
 
 Select dea.continent, dea.location, dea.date, dea.population, vac.new_vaccinations
 , SUM(cast(vac.new_vaccinations as int)) OVER (Partition by dea.location Order by dea.location,dea.date)
